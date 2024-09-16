@@ -343,7 +343,7 @@ header img {
   height: 100%;
   outline: none;
 }
-.repos-container li {
+.repos-container > li {
   display: flex;
   justify-content: space-between;
   list-style: none;
@@ -408,6 +408,45 @@ header img {
   background-color: #f6f8fa;
   cursor: pointer;
 }
+.stars-dropdown {
+  position: relative;
+}
+.stars-dropdown .dropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  width: 300px;
+  background-color: white;
+  z-index: 5;
+  border: #d1d9e0;
+  box-shadow: 0px 6px 12px -3px #25292e0a, 0px 6px 18px 0px #25292e1f;
+  margin: 0.5rem 0 1rem;
+  top: 40px;
+  right: 0;
+  border-radius: 6px;
+}
+.stars-dropdown .dropdown.active {
+  display: flex;
+}
+.select-list {
+  padding: 0 16px 8px;
+  list-style: none;
+  border-top: 1px solid #d1d9e0b3;
+  border-bottom: 1px solid #d1d9e0b3;
+}
+.select-list li {
+  padding: 0.25rem;
+  margin-top: 0.25rem;
+  display: flex;
+}
+.select-list li span {
+  margin-left: 0.5rem;
+}
+.dropdown .title {
+  display: flex;
+  padding: 7px 7px 7px 1rem;
+  justify-content: space-between;
+}
 .stars > div {
   display: flex;
 }
@@ -434,4 +473,23 @@ header img {
 }
 .stars > :last-child:hover {
   background-color: #eff2f5;
+}
+
+.navigations {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+.navigations button {
+  padding: 5px 10px;
+  background-color: transparent;
+  border: none;
+}
+.next-btn {
+  color: #0969da;
+}
+footer {
+  padding: 4rem 1rem 2.5rem;
+  display: flex;
+  justify-content: center;
 }
