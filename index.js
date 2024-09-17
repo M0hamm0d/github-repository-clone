@@ -8,7 +8,8 @@ const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
 
 const name = document.querySelector(".name");
-let url = "https://api.github.com/users/M0hamm0d/repos";
+let url =
+  "https://api.github.com/users/M0hamm0d/repos?sort=created&direction=desc";
 async function repoEndPoint() {
   let response = await fetch(url);
   const linkHeader = response.headers.get("link");
@@ -36,6 +37,7 @@ async function repoEndPoint() {
   });
 
   let data = await response.json();
+  console.log(data);
 
   owner.textContent = data[0].owner.login;
   name.textContent = data[0].owner.login;
