@@ -31,8 +31,15 @@ lang.addEventListener("click", () => {
 createRepo.addEventListener("click", () => {
   repoDropdown.classList.toggle("active");
 });
+const token = process.env.NEXT_PUBLIC_GH_API_TOKEN;
+
 async function repoEndPoint() {
-  let response = await fetch(url);
+  let response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   const linkHeader = response.headers.get("link");
   let linkHeaderPrev = linkHeader.split(",")[0].includes("prev");
   let linkHeaderNext = linkHeader.split(",")[0].includes("next");
