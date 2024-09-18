@@ -6,10 +6,31 @@ const reposNum = document.querySelector(".repos-num");
 const description = document.querySelectorAll(".description");
 const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
-
 const name = document.querySelector(".name");
+const createRepo = document.querySelector(".create-repo");
+const repoDropdown = document.querySelector(".repo-dropdown");
+const sort = document.querySelector(".sort");
+const sortDropdown = document.querySelector(".sort-dropdown");
+const lang = document.querySelector(".lang-filter");
+const langDropdown = document.querySelector(".language-dropdown");
+const type = document.querySelector(".type");
+const typeDropdown = document.querySelector(".type-dropdown");
+
 let url =
   "https://api.github.com/users/M0hamm0d/repos?sort=created&direction=desc";
+
+sort.addEventListener("click", () => {
+  sortDropdown.classList.toggle("active");
+});
+type.addEventListener("click", () => {
+  typeDropdown.classList.toggle("active");
+});
+lang.addEventListener("click", () => {
+  langDropdown.classList.toggle("active");
+});
+createRepo.addEventListener("click", () => {
+  repoDropdown.classList.toggle("active");
+});
 async function repoEndPoint() {
   let response = await fetch(url);
   const linkHeader = response.headers.get("link");
@@ -37,7 +58,7 @@ async function repoEndPoint() {
   });
 
   let data = await response.json();
-  console.log(data);
+  //console.log(data);
 
   owner.textContent = data[0].owner.login;
   name.textContent = data[0].owner.login;
@@ -55,21 +76,23 @@ async function repoEndPoint() {
                     <p class="visibility">${item.visibility}</p>
                   </div>
                   <p class="description">
-                    ${item.description == null ? "" : item.description}
+                    ${item.description === null ? "" : item.description}
                   </p>
                   <div class="language">
                     <div class="lang">
                       <div class="lang-color"></div>
-                      <p class="prog-lang">${item.language}</p>
+                      <p class="prog-lang">${
+                        item.language === null ? "HTML" : item.language
+                      }</p>
                     </div>
                     <div class="update">Updated 17 hours ago</div>
                   </div>
                 </div>
                 <div class="">
                   <button class="stars">
-                    <div class="">
-                      <img src="asset/images/svg/star.svg" alt="" />
-                      <p>Star</p>
+                    <div class="star-container">
+                      <img src="asset/images/svg/star.svg" alt="" class="star-logo"/>
+                      <p class="star-text">Star</p>
                     </div>
                     <div class="stars-dropdown">
                       <img src="asset/images/svg/dropdown.svg" alt="" />
@@ -103,29 +126,26 @@ async function repoEndPoint() {
   const dropdown = document.querySelectorAll(".dropdown");
   const starsDropdown = document.querySelectorAll(".stars-dropdown");
   const main = document.querySelector(".main");
-
-  main.addEventListener("click", () => {
-    dropdown.forEach((item) => {
-      // item.style.display === "flex"
-      //   ? (item.style.display = "none")
-      //   : (item.style.display = "");
-      //console.log(item);
+  const starContainer = document.querySelectorAll(".star-container");
+  const starText = document.querySelectorAll(".star-text");
+  const starLogo = document.querySelectorAll(".star-logo");
+  starContainer.forEach((item, i) => {
+    item.addEventListener("click", () => {
+      if (starText[i].textContent === "Star") {
+        starText[i].textContent = "Starred";
+        starLogo[i].src = "asset/images/svg/starred.svg";
+      } else {
+        starText[i].textContent = "Star";
+        starLogo[i].src = "asset/images/svg/star.svg";
+      }
+      console.log(starLogo[i].src);
     });
   });
 
   starsDropdown.forEach((item, i) => {
     item.addEventListener("click", () => {
-      dropdown.forEach((item) => {
-        item.classList.remove("active");
-        dropdown[i].classList.add("active");
-      });
-      //console.log(dropdown[i]);
-      starsDropdown.forEach((data) => {
-        //console.log(data);
-        data.classList.remove("active");
-      });
-      //item.classList.toggle("active");
-      console.log(item);
+      item.classList.toggle("active");
+      dropdown[i].classList.toggle("active");
     });
     //console.log(item);
   });
