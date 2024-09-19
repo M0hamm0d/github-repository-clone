@@ -1,3 +1,4 @@
+import env from "./env.js";
 const owner = document.querySelector(".owner-name");
 let profilePics = document.querySelector(".pro-pics");
 const profileSec = document.querySelector(".profile-sec");
@@ -31,8 +32,16 @@ lang.addEventListener("click", () => {
 createRepo.addEventListener("click", () => {
   repoDropdown.classList.toggle("active");
 });
+
 async function repoEndPoint() {
-  let response = await fetch(url);
+  let response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${
+        typeof window === "undefined" ? process.env.API_KEY : env.API_KEY
+      }`,
+    },
+  });
   const linkHeader = response.headers.get("link");
   let linkHeaderPrev = linkHeader.split(",")[0].includes("prev");
   let linkHeaderNext = linkHeader.split(",")[0].includes("next");
@@ -58,7 +67,6 @@ async function repoEndPoint() {
   });
 
   let data = await response.json();
-  //console.log(data);
 
   owner.textContent = data[0].owner.login;
   name.textContent = data[0].owner.login;
