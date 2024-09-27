@@ -38,7 +38,9 @@ async function repoEndPoint() {
     method: "GET",
     headers: {
       Authorization: `Bearer ${
-        typeof window === "undefined" ? process.env.API_KEY : env.API_KEY
+        window.location.origin !== "http://127.0.0.1:5500"
+          ? process.env.API_KEY
+          : env.API_KEY
       }`,
     },
   });

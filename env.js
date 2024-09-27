@@ -1,4 +1,4 @@
 export default {
   API_KEY:
-    "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",
+    "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",
 };
